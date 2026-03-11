@@ -41,6 +41,7 @@ transition:.4s;
 header{
 display:flex;
 justify-content:space-between;
+align-items:center;
 padding:25px 10%;
 border-bottom:1px solid var(--border);
 }
@@ -50,12 +51,37 @@ font-weight:600;
 letter-spacing:2px;
 }
 
-.toggle{
-cursor:pointer;
+.header-right{
+display:flex;
+gap:12px;
+align-items:center;
+}
+
+.theme-btn{
+width:42px;
+height:42px;
+border-radius:50%;
 border:1px solid var(--border);
-padding:8px 14px;
-border-radius:8px;
 background:var(--card);
+cursor:pointer;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:18px;
+transition:.4s;
+}
+
+.theme-btn:hover{
+transform:rotate(180deg) scale(1.1);
+}
+
+.telegram{
+padding:8px 14px;
+background:#229ED9;
+color:white;
+border-radius:8px;
+text-decoration:none;
+font-size:14px;
 }
 
 .container{
@@ -134,6 +160,43 @@ cursor:pointer;
 display:none;
 }
 
+.back{
+margin-bottom:20px;
+padding:8px 14px;
+background:var(--card);
+border:1px solid var(--border);
+border-radius:8px;
+cursor:pointer;
+}
+
+.scroll-progress{
+position:fixed;
+bottom:25px;
+right:25px;
+width:60px;
+height:60px;
+}
+
+.scroll-progress svg{
+transform:rotate(-90deg);
+}
+
+.scroll-progress circle{
+fill:none;
+stroke-width:6;
+}
+
+.scroll-progress circle:first-child{
+stroke:var(--border);
+}
+
+#progressCircle{
+stroke:var(--accent);
+stroke-dasharray:163;
+stroke-dashoffset:163;
+transition:stroke-dashoffset .2s linear;
+}
+
 @keyframes pop{
 from{transform:scale(.9);opacity:0}
 to{transform:scale(1);opacity:1}
@@ -148,11 +211,21 @@ to{transform:scale(1);opacity:1}
 
 <div class="logo">GT NEO 3 OTA</div>
 
-<div class="toggle" onclick="toggleTheme()">Theme</div>
+<div class="header-right">
+
+<a class="telegram" href="https://t.me/YOURGROUP" target="_blank">Join Telegram</a>
+
+<button id="themeToggle" class="theme-btn" onclick="toggleTheme()">
+<span class="icon">🌙</span>
+</button>
+
+</div>
 
 </header>
 
 <div class="container">
+
+<button id="backBtn" class="back hidden" onclick="goBack()">← Back</button>
 
 <div id="firmwareList" class="grid">
 
@@ -198,15 +271,33 @@ to{transform:scale(1);opacity:1}
 
 </div>
 
+<div class="scroll-progress">
+<svg width="60" height="60">
+<circle cx="30" cy="30" r="26"></circle>
+<circle id="progressCircle" cx="30" cy="30" r="26"></circle>
+</svg>
+</div>
+
 <script>
 
 function toggleTheme(){
+
 document.body.classList.toggle("light")
+
+let icon=document.querySelector(".icon")
+
+if(document.body.classList.contains("light")){
+icon.textContent="☀️"
+}else{
+icon.textContent="🌙"
+}
+
 }
 
 function filterFirmware(version){
 
 document.getElementById("versionModal").classList.add("hidden")
+document.getElementById("backBtn").classList.remove("hidden")
 
 let cards=document.querySelectorAll(".card")
 
@@ -219,6 +310,34 @@ card.style.display="none"
 })
 
 }
+
+function goBack(){
+
+document.getElementById("versionModal").classList.remove("hidden")
+document.getElementById("backBtn").classList.add("hidden")
+
+let cards=document.querySelectorAll(".card")
+
+cards.forEach(card=>{
+card.style.display="block"
+})
+
+}
+
+window.addEventListener("scroll",()=>{
+
+let scrollTop=document.documentElement.scrollTop
+let scrollHeight=document.documentElement.scrollHeight - document.documentElement.clientHeight
+
+let progress=(scrollTop/scrollHeight)
+
+let circle=document.getElementById("progressCircle")
+
+let circumference=163
+
+circle.style.strokeDashoffset=circumference-(progress*circumference)
+
+})
 
 </script>
 
