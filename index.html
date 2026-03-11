@@ -1,0 +1,211 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>GT Neo 3 Firmware OTA</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+--bg:#0b0b0b;
+--card:#141414;
+--text:#e6e6e6;
+--accent:#4da3ff;
+--border:#222;
+}
+
+.light{
+--bg:#f4f4f4;
+--card:#ffffff;
+--text:#111;
+--accent:#2c7efc;
+--border:#ddd;
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Inter',sans-serif;
+}
+
+body{
+background:var(--bg);
+color:var(--text);
+transition:.4s;
+}
+
+header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:25px 10%;
+border-bottom:1px solid var(--border);
+}
+
+.logo{
+font-size:22px;
+font-weight:600;
+letter-spacing:2px;
+opacity:.9;
+}
+
+.toggle{
+cursor:pointer;
+border:1px solid var(--border);
+padding:8px 14px;
+border-radius:8px;
+background:var(--card);
+transition:.3s;
+}
+
+.toggle:hover{
+transform:scale(1.05);
+}
+
+.container{
+max-width:1100px;
+margin:auto;
+padding:60px 20px;
+}
+
+.title{
+font-size:36px;
+font-weight:600;
+margin-bottom:10px;
+}
+
+.subtitle{
+opacity:.6;
+margin-bottom:40px;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+background:var(--card);
+border-radius:12px;
+overflow:hidden;
+animation:fade .6s ease;
+}
+
+th,td{
+padding:16px;
+text-align:left;
+border-bottom:1px solid var(--border);
+}
+
+th{
+font-weight:500;
+opacity:.7;
+}
+
+tr:hover{
+background:rgba(255,255,255,0.02);
+}
+
+.download{
+padding:8px 18px;
+border-radius:8px;
+background:var(--accent);
+color:white;
+text-decoration:none;
+font-size:14px;
+transition:.25s;
+}
+
+.download:hover{
+transform:translateY(-2px);
+box-shadow:0 5px 14px rgba(0,0,0,.4);
+}
+
+footer{
+text-align:center;
+opacity:.5;
+margin-top:60px;
+font-size:13px;
+}
+
+@keyframes fade{
+from{opacity:0; transform:translateY(10px)}
+to{opacity:1; transform:translateY(0)}
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">GT NEO 3 OTA</div>
+
+<div class="toggle" onclick="toggleTheme()">Dark / Light</div>
+
+</header>
+
+<div class="container">
+
+<div class="title">Firmware Downloads</div>
+<div class="subtitle">Official OTA firmware repository</div>
+
+<table>
+
+<thead>
+<tr>
+<th>Firmware</th>
+<th>Android</th>
+<th>Region</th>
+<th>Download</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>RMX3561_14.0.0.501</td>
+<td>Android 14</td>
+<td>Global</td>
+<td><a class="download" href="#">Download</a></td>
+</tr>
+
+<tr>
+<td>RMX3561_13.1.0.181</td>
+<td>Android 13</td>
+<td>India</td>
+<td><a class="download" href="#">Download</a></td>
+</tr>
+
+<tr>
+<td>RMX3561_12.1.0.150</td>
+<td>Android 12</td>
+<td>EU</td>
+<td><a class="download" href="#">Download</a></td>
+</tr>
+
+</tbody>
+
+</table>
+
+<footer>
+GT Neo 3 Firmware Archive • GitHub
+</footer>
+
+</div>
+
+<script>
+
+function toggleTheme(){
+document.body.classList.toggle("light")
+}
+
+</script>
+
+</body>
+</html>
+```
