@@ -251,15 +251,32 @@ bottom:18px;
 right:18px;
 width:44px;
 height:44px;
+opacity:0;
+transform:scale(.7);
+pointer-events:none;
+transition:opacity .25s ease, transform .25s ease;
+cursor:pointer;
+display:flex;
+align-items:center;
+justify-content:center;
 }
 
+.scroll-progress.visible{
+opacity:1;
+transform:scale(1);
+pointer-events:auto;
+}
+
+/* SVG ring */
+
 .scroll-progress svg{
+position:absolute;
 transform:rotate(-90deg);
 }
 
 .scroll-progress circle{
 fill:none;
-stroke-width:6;
+stroke-width:4;
 }
 
 .scroll-progress circle:first-child{
@@ -268,9 +285,30 @@ stroke:var(--border);
 
 #progressCircle{
 stroke:var(--accent);
-stroke-dasharray:163;
-stroke-dashoffset:163;
+stroke-dasharray:113;
+stroke-dashoffset:113;
 transition:stroke-dashoffset .2s linear;
+}
+
+/* arrow */
+
+.scroll-arrow{
+font-size:16px;
+opacity:0;
+transform:translateY(4px);
+transition:opacity .2s ease, transform .2s ease;
+color:var(--text);
+}
+
+/* hover reveal */
+
+.scroll-progress:hover .scroll-arrow{
+opacity:1;
+transform:translateY(0);
+}
+
+.scroll-progress:hover svg{
+opacity:.3;
 }
 
 /* ================= MOBILE FIX ================= */
@@ -433,8 +471,9 @@ to{transform:scale(1);opacity:1}
 
 </svg>
 
-</div>
+<div class="scroll-arrow">↑</div>
 
+</div>
 
 <!-- ================= JAVASCRIPT ================= -->
 
@@ -537,18 +576,40 @@ btn.innerText="Copy Link"
 
 /* ================= SCROLL PROGRESS ================= */
 
+const progressCircle=document.getElementById("progressCircle")
+const progressContainer=document.querySelector(".scroll-progress")
+
+const circumference=113
+
 window.addEventListener("scroll",()=>{
 
 let scrollTop=document.documentElement.scrollTop
 let scrollHeight=document.documentElement.scrollHeight - document.documentElement.clientHeight
 
-let progress=(scrollTop/scrollHeight)
+let progress=scrollTop/scrollHeight
 
-let circle=document.getElementById("progressCircle")
+/* progress ring */
 
-let circumference=113
+progressCircle.style.strokeDashoffset=circumference-(progress*circumference)
 
-circle.style.strokeDashoffset=circumference-(progress*circumference)
+/* show after 40% scroll */
+
+if(progress>0.4){
+progressContainer.classList.add("visible")
+}else{
+progressContainer.classList.remove("visible")
+}
+
+})
+
+/* scroll to top */
+
+progressContainer.addEventListener("click",()=>{
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+})
 
 })
 
