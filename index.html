@@ -124,6 +124,13 @@ background:var(--card);
 border-radius:8px;
 cursor:pointer;
 font-size:13px;
+transition:.2s;
+}
+
+.filter-btn.active{
+background:var(--accent);
+color:white;
+border-color:var(--accent);
 }
 
 /* ================= GRID ================= */
@@ -179,11 +186,17 @@ font-size:13px;
 
 .copy{
 padding:8px 12px;
-background:var(--card);
-border:1px solid var(--border);
+background:var(--accent);
+color:white;
+border:1px solid var(--accent);
 border-radius:8px;
 cursor:pointer;
 font-size:13px;
+transition:.2s;
+}
+
+.copy:hover{
+opacity:.85;
 }
 
 /* ================= MODAL ================= */
@@ -234,10 +247,10 @@ cursor:pointer;
 
 .scroll-progress{
 position:fixed;
-bottom:22px;
-right:22px;
-width:60px;
-height:60px;
+bottom:18px;
+right:18px;
+width:44px;
+height:44px;
 }
 
 .scroll-progress svg{
@@ -482,6 +495,17 @@ card.style.display="block"
 function filterRegion(region){
 
 let cards=document.querySelectorAll(".card")
+let buttons=document.querySelectorAll(".filter-btn")
+
+/* highlight active region */
+
+buttons.forEach(btn=>{
+btn.classList.remove("active")
+})
+
+event.target.classList.add("active")
+
+/* filter cards */
 
 cards.forEach(card=>{
 
